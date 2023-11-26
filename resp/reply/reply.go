@@ -83,6 +83,10 @@ type StandardErrReply struct {
 	Status string
 }
 
+func NewStandardErrReply(status string) *StandardErrReply {
+	return &StandardErrReply{}
+}
+
 func (s *StandardErrReply) Error() string {
 	return s.Status
 }
