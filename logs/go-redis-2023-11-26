@@ -49,3 +49,25 @@
 2023/11/26 18:12:52 [INFO][parser.go:162] msg:\r2&2$2\r\nOK\r\n
 
 2023/11/26 18:12:52 [INFO][parser.go:68] [parser parse0] state.readingMultiLine
+2023/11/26 18:16:20 [INFO][server.go:35] start listen...
+2023/11/26 18:16:22 [INFO][server.go:63] link accepted...
+2023/11/26 18:16:23 [INFO][parser.go:170] state.bulkLen = 0 , msg = $2\r\nOK\r\n
+2023/11/26 18:16:23 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
+2023/11/26 18:22:00 [INFO][parser.go:170] state.bulkLen = 0 , msg = $2\r	
+2023/11/26 18:22:00 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
+2023/11/26 18:22:11 [INFO][parser.go:170] state.bulkLen = 0 , msg = $2	
+2023/11/26 18:22:11 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
+2023/11/26 18:22:32 [INFO][parser.go:170] state.bulkLen = 0 , msg = *2	
+2023/11/26 18:22:32 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
+2023/11/26 18:22:32 [INFO][parser.go:179] [parser parseMultiBulkHeader] msg = *2	
+
+2023/11/26 18:22:32 [INFO][parser.go:181] [parser parseMultiBulkHeader] expectedLine = 0
+2023/11/26 18:23:14 [INFO][parser.go:170] state.bulkLen = 0 , msg = *2	
+2023/11/26 18:23:14 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
+2023/11/26 18:23:14 [INFO][parser.go:179] [parser parseMultiBulkHeader] msg = *2	
+
+2023/11/26 18:23:14 [INFO][parser.go:181] [parser parseMultiBulkHeader] expectedLine = 0
+2023/11/26 18:23:17 [INFO][parser.go:170] state.bulkLen = 0 , msg = nd
+2023/11/26 18:23:17 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
+2023/11/26 18:23:38 [INFO][parser.go:170] state.bulkLen = 0 , msg = $2	\n OK\	\n
+2023/11/26 18:23:38 [INFO][parser.go:74] [parser parse0] state.readingMultiLine
