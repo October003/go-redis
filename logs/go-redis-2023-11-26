@@ -1,0 +1,51 @@
+2023/11/26 17:08:17 [INFO][server.go:35] start listen...
+2023/11/26 17:09:06 [INFO][server.go:63] link accepted...
+2023/11/26 17:09:44 [ERROR][handler.go:72] require multi bulk reply
+2023/11/26 17:10:38 [INFO][handler.go:53] connection closed:127.0.0.1:62306
+2023/11/26 17:18:50 [INFO][server.go:35] start listen...
+2023/11/26 17:18:54 [INFO][server.go:63] link accepted...
+2023/11/26 17:19:02 [INFO][parser.go:141] [bulklen == 0 ]msg:$3\r\n
+
+2023/11/26 17:21:30 [INFO][server.go:35] start listen...
+2023/11/26 17:21:39 [INFO][server.go:63] link accepted...
+2023/11/26 17:21:42 [INFO][parser.go:161] msg: 
+
+2023/11/26 17:21:43 [INFO][parser.go:161] msg:dawd
+
+2023/11/26 17:21:58 [INFO][parser.go:161] msg:$3\r\n
+
+2023/11/26 17:22:21 [INFO][parser.go:161] msg:+ok
+
+2023/11/26 17:22:21 [ERROR][handler.go:72] require multi bulk reply
+2023/11/26 17:22:43 [INFO][parser.go:161] msg:+OK
+
+2023/11/26 17:22:43 [ERROR][handler.go:72] require multi bulk reply
+2023/11/26 17:22:56 [INFO][parser.go:161] msg:+PING\r\n
+
+2023/11/26 17:22:56 [ERROR][handler.go:72] require multi bulk reply
+2023/11/26 17:24:10 [INFO][parser.go:161] msg:#[C[C@$3\r\nSET\r\n[D[D
+
+2023/11/26 17:24:54 [INFO][parser.go:161] msg:*2\r\n#3#$e2#3\rn\nSET|\r\n$3\r\nKEY\r\n
+
+2023/11/26 17:27:34 [INFO][server.go:35] start listen...
+2023/11/26 17:27:37 [INFO][server.go:63] link accepted...
+2023/11/26 17:27:38 [INFO][parser.go:162] msg:*2\r\n$3\r\nSET\r\n$3\r\nKEY\r\n
+
+2023/11/26 17:27:38 [INFO][parser.go:68] [parser parse0] state.readingMultiLine
+2023/11/26 17:30:01 [INFO][server.go:35] start listen...
+2023/11/26 17:30:04 [INFO][server.go:63] link accepted...
+2023/11/26 17:30:15 [INFO][parser.go:162] msg:*2\r\n$3\r\nSET\r\n$3\r\nKEY\r\n
+
+2023/11/26 17:30:15 [INFO][parser.go:68] [parser parse0] state.readingMultiLine
+2023/11/26 17:30:15 [INFO][parser.go:172] parseMultiBulkHeader expectedLine=0
+2023/11/26 17:32:50 [INFO][server.go:35] start listen...
+2023/11/26 17:32:57 [INFO][server.go:63] link accepted...
+2023/11/26 17:32:58 [INFO][parser.go:162] msg:*2\r\n$3\r\nSET\r\n$3\r\nKEY\r\n
+
+2023/11/26 17:32:58 [INFO][parser.go:68] [parser parse0] state.readingMultiLine
+2023/11/26 17:32:58 [INFO][parser.go:171] [parser parseMultiBulkHeader]*2\r\n$3\r\nSET\r\n$3\r\nKEY\r\n
+
+2023/11/26 17:32:58 [INFO][parser.go:173] [parser parseMultiBulkHeader] expectedLine=0
+2023/11/26 18:12:52 [INFO][parser.go:162] msg:\r2&2$2\r\nOK\r\n
+
+2023/11/26 18:12:52 [INFO][parser.go:68] [parser parse0] state.readingMultiLine

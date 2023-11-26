@@ -12,6 +12,9 @@ import (
 	"strings"
 )
 
+// Bulk String有两行，第一行为 $+正文长度，第二行为实际内容
+// $3\r\nSET\r\n
+
 type Payload struct {
 	Data resp.Reply
 	Err  error
@@ -22,7 +25,7 @@ type readState struct {
 	expectedArgsCount int
 	msgType           byte
 	args              [][]byte
-	bulkLen           int64
+	bulkLen           int64 // 正文长度
 }
 
 func (s *readState) finished() bool {
@@ -37,7 +40,6 @@ func ParseStream(reader io.Reader) <-chan *Payload {
 }
 
 func parse0(reader io.Reader, ch chan<- *Payload) {
-
 	defer func() {
 		if err := recover(); err != nil {
 			logger.Error(string(debug.Stack()))
@@ -65,7 +67,11 @@ func parse0(reader io.Reader, ch chan<- *Payload) {
 			continue
 		}
 		// 判断是不是多行解析模式
+		// 我们简单的将 Reply 分为两类:
+		// 单行: StatusReply, IntReply, ErrorReply
+		// 多行: BulkReply, MultiBulkRepl
 		if !state.readingMultiLine {
+			logger.Info("[parser parse0] state.readingMultiLine")
 			if msg[0] == '*' {
 				err := parseMultiBulkHeader(msg, &state)
 				if err != nil {
@@ -133,12 +139,14 @@ func parse0(reader io.Reader, ch chan<- *Payload) {
 	}
 }
 
+// readLine 读取一行数据
 func readLine(bufReader *bufio.Reader, state *readState) ([]byte, bool, error) {
 	var msg []byte
 	var err error
+	// 1.read simple line 直接\r\n切分
 	if state.bulkLen == 0 {
-		// 1. \r\n 切分
 		msg, err = bufReader.ReadBytes('\n')
+		// logger.Info("[bulklen == 0 ]msg:" + string(msg))
 		if err != nil {
 			return nil, true, err
 		}
@@ -146,9 +154,11 @@ func readLine(bufReader *bufio.Reader, state *readState) ([]byte, bool, error) {
 			return nil, false, errors.New("protocol error:" + string(msg))
 		}
 	} else {
-		// 2. 之前读到了$数字，严格读取字符个数
+		// 2. read bulk line (binary safe)
+		// 读取到 $5\r\nk\r\ney\r\n时 ，会将其误认为两行  应该读取指定长度的内容
 		msg = make([]byte, state.bulkLen+2)
 		_, err = io.ReadFull(bufReader, msg)
+		// logger.Info("[bulklen != 0 ]msg:" + string(msg))
 		if err != nil {
 			return nil, true, err
 		}
@@ -156,7 +166,8 @@ func readLine(bufReader *bufio.Reader, state *readState) ([]byte, bool, error) {
 			return nil, false, errors.New("protocol error:" + string(msg))
 		}
 		state.bulkLen = 0
-	}
+	}	
+	logger.Infof("[parser readLine]state.bulkLen = %d , msg = %s", state.bulkLen, string(msg))
 	return msg, false, nil
 }
 
@@ -165,7 +176,9 @@ func readLine(bufReader *bufio.Reader, state *readState) ([]byte, bool, error) {
 func parseMultiBulkHeader(msg []byte, state *readState) error {
 	var err error
 	var expectedLine uint64
+	logger.Info("[parser parseMultiBulkHeader] msg = " + string(msg))
 	expectedLine, err = strconv.ParseUint(string(msg[1:len(msg)-2]), 10, 32)
+	logger.Infof("[parser parseMultiBulkHeader] expectedLine = %d", expectedLine)
 	if err != nil {
 		return errors.New("protocol error:" + string(msg))
 	}
