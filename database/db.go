@@ -1,6 +1,7 @@
 package database
 
 import (
+	"go-redis/aof"
 	"go-redis/datastruct/dict"
 	"go-redis/interface/database"
 	"go-redis/interface/resp"
@@ -9,12 +10,16 @@ import (
 )
 
 type DB struct {
-	index int
-	data  dict.Dict
+	index  int
+	data   dict.Dict
+	addAof func(aof.CmdLine)
 }
 
 func NewDB() *DB {
-	return &DB{data: dict.NewSyncDict()}
+	return &DB{
+		data:   dict.NewSyncDict(),
+		addAof: func(cl aof.CmdLine) {},
+	}
 }
 
 type ExecFunc func(db *DB, args [][]byte) resp.Reply
