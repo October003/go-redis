@@ -26,7 +26,7 @@ type RespHandelr struct {
 }
 
 func NewRespHandler() *RespHandelr {
-	var db databaseface.Database = database.NewEchoDatabase()
+	var db databaseface.Database = database.NewDataBase()
 	// TODO: 实现Database
 	return &RespHandelr{db: db}
 }
